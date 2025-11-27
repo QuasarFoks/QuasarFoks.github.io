@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Установка Quasarlinux — QuasarFoks</title>
+  <meta name="description" content="QuasarFoks — сообщество разработчиков, создающих инновационные проекты для Linux: QuasarLinux, Systemd-RC, Fast-chroot и другие.">
+  <meta name="google-site-verification" content="qJqEZi9C15dPM0YSY2co0qhboYBQaKTDAGNAWSMEoN0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000;
+      --bg-soft: #0a0a0a;
+      --card-bg: #121212;
+      --text: #ffffff;
+      --text-muted: #a0a0a0;
+      --accent: #6d5dfc;
+      --accent-hover: #8a7dff;
+      --border-radius: 16px;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2.5rem;
+      background: rgba(10, 10, 10, 0.85);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    header img {
+      height: 36px;
+      transition: var(--transition);
+    }
+
+    header img:hover {
+      transform: scale(1.06);
+    }
+
+    .logo-text {
+      font-weight: 700;
+      font-size: 1.2rem;
+      background: linear-gradient(90deg, var(--accent), #a396ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Telegram Dropdown */
+    .telegram-dropdown {
+      position: relative;
+    }
+
+    .telegram-trigger {
+      cursor: pointer;
+    }
+
+    .telegram-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      min-width: 180px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+      z-index: 1001;
+      padding: 0.5rem 0;
+      margin-top: 8px;
+    }
+
+    .telegram-dropdown:hover .telegram-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .telegram-menu a {
+      color: var(--text-muted);
+      padding: 0.6rem 1.2rem;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      margin: 0;
+    }
+
+    .telegram-menu a::after {
+      display: none;
+    }
+
+    .telegram-menu a:hover {
+      color: var(--accent);
+      background: rgba(109, 93, 252, 0.1);
+    }
+
+    /* Mobile menu button */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0 8%;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .hero-content {
+      max-width: 700px;
+      z-index: 2;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 4.5vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, #fff, #aaa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      background: var(--card-bg);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(109, 93, 252, 0.4);
+      background: var(--accent-hover);
+    }
+
+    /* Content Sections */
+    .content-section {
+      padding: 6rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Wiki Content Styles */
+    .wiki-content {
+      max-width: 100%;
+      line-height: 1.7;
+    }
+
+    .wiki-content h1, 
+    .wiki-content h2, 
+    .wiki-content h3 {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .wiki-content h1 {
+      font-size: 2.2rem;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 0.5rem;
+    }
+
+    .wiki-content h2 {
+      font-size: 1.8rem;
+    }
+
+    .wiki-content h3 {
+      font-size: 1.4rem;
+    }
+
+    .wiki-content p {
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+    }
+
+    .wiki-content code {
+      background: var(--card-bg);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-family: 'Monaco', 'Consolas', monospace;
+      font-size: 0.9em;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .wiki-content pre {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .wiki-content pre code {
+      background: none;
+      padding: 0;
+      border: none;
+    }
+
+    .wiki-content blockquote {
+      border-left: 4px solid var(--accent);
+      padding-left: 1.5rem;
+      margin: 1.5rem 0;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .wiki-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    .wiki-content th, 
+    .wiki-content td {
+      padding: 0.75rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      text-align: left;
+    }
+
+    .wiki-content th {
+      background: rgba(109, 93, 252, 0.1);
+      font-weight: 600;
+    }
+
+    .wiki-content ul, 
+    .wiki-content ol {
+      margin: 1rem 0;
+      padding-left: 2rem;
+    }
+
+    .wiki-content li {
+      margin-bottom: 0.5rem;
+      color: var(--text-muted);
+    }
+
+    .wiki-content a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .wiki-content a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      border-color: rgba(109, 93, 252, 0.2);
+    }
+
+    .project-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+
+    .project-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .project-card p {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .project-status {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .status-dev {
+      background: rgba(255, 193, 7, 0.2);
+      color: #ffc107;
+    }
+
+    .status-stable {
+      background: rgba(40, 167, 69, 0.2);
+      color: #28a745;
+    }
+
+    .status-beta {
+      background: rgba(0, 123, 255, 0.2);
+      color: #007bff;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: auto;
+      flex-wrap: wrap;
+    }
+
+    .project-links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      padding: 0.5rem 1rem;
+      border: 1px solid rgba(109, 93, 252, 0.3);
+      border-radius: 6px;
+    }
+
+    .project-links a:hover {
+      color: var(--accent-hover);
+      border-color: var(--accent);
+      background: rgba(109, 93, 252, 0.1);
+    }
+
+    /* Community */
+    .community-info {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .community-info p {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    /* Contact Methods */
+    .contact-methods {
+      margin: 2rem 0;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.5rem;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: var(--transition);
+      margin: 0.5rem;
+    }
+
+    .contact-btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    .freedom-note {
+      background: rgba(109, 93, 252, 0.1);
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+      border-left: 4px solid var(--accent);
+      text-align: left;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: var(--bg-soft);
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      nav {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: var(--bg-soft);
+        flex-direction: column;
+        padding: 2rem;
+        gap: 1rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+
+      nav.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .telegram-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        background: transparent;
+        border: none;
+        margin-top: 0.5rem;
+      }
+
+      .hero {
+        text-align: center;
+        justify-content: center;
+        padding-top: 80px;
+      }
+
+      .hero-content {
+        margin: 0 auto;
+      }
+
+      .content-section {
+        padding: 4rem 5%;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .project-links {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="https://github.com/QuasarFoks/QuasarArt/blob/main/logo/QuasarFoks/logo.png?raw=true" alt="QuasarFoks Logo">
+      <span class="logo-text">QuasarFoks</span>
+    </div>
+
+    <button class="mobile-menu-btn">☰</button>
+
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="https://quasarfoks.github.io/#projects">Проекты</a>
+      <a href="https://quasarfoks.github.io/#community">Сообщество</a>
+      <a href="https://QuasarFoks.github.io/policy">Политика</a>
+      <a href="https://QuasarFoks.github.io/keys">Публичный GPG</a>
+
+      <div class="telegram-dropdown">
+        <a href="#" class="telegram-trigger">Telegram</a>
+        <div class="telegram-menu">
+          <a href="https://t.me/quasar_foks" target="_blank">@QuasarFoks</a>
+          <a href="https://t.me/quasarlinux" target="_blank">@QuasarLinux</a>
+          <a href="https://t.me/blazarlinux" target="_blank">@BlazarLinux</a>
+        </div>
+      </div>
+
+      <a href="https://github.com/QuasarFoks">GitHub</a>
+      <a href="https://gitlab.com/users/Quasar_benz/projects">GitLab</a>
+      <a href="https://sourceforge.net/u/quasarbenz/profile">SourceForge</a>
+    </nav>
+  </header>
+
+  <main>
+    
+        <section class="content-section">
+            <div class="container">
+                <div class="wiki-content">
+                    <h1 id="_1">Подготовка</h1>
+<p>Для начала у компьютера должны быть соблюдены эти системные требования:
+| Комплектующие | Минимальные | Рекомендованные |
+|-------------|-------------|-------------|
+|  процессор  | X86_64    | X86_64 SSE 4.1, VT-x/AMD-v    |
+|     ОЗУ     | 1гб    | 4гб    |
+| Видеокарта  | vga 1024/768 | С Vulkan (AMD/Intel)  |
+| Место на диске | 20гб     | 40гб       |
+| Интернет    |   обязателен   |  обязательно |</p>
+<h3 id="usbcd">Подготовка загрузочного USB/CD</h3>
+<p>Образ QuasarLinux как и все другие дистрибутивы распространяются в формате <code>.iso</code>. Его нельзя так просто взять и перекинуть на будущий загрузочный диск. Записать его можно несколькими способами:
+| Windows | GNU/Linux | MacOS |
+|---------|-----------|-------|
+| rufus   |  Etcher   |Etcher |
+|Ventoy   |Ventoy     |  N\A  |</p>
+<p>У каждой программы запись идёт по разному, создавать таблицу разделов нужно (если программа позволяет) под свою прошивку bios:
+|Прошивка|тип таблицы|
+|--------|-----------|
+| Legacy | MBR       |
+| UEFI   | GPT       |</p>
+<p>После записи если вы хотите на другой компьютер установить то вытаскивайте загрузочный диск, если на свой то перезагружайтесь.</p>
+<h1 id="_2">Загрузка с загрузочного диска</h1>
+<p>До перезагрузки узнайте какая клавиша отвечает за вход в <code>boot menu</code>. В <code>boot menu</code> выберите свой диск загрузочный и нажав <code>enter</code>, и если загрузка пошла, то вы всё сделали удачно и правильно. </p>
+<h2 id="live-cd">Работа в LIVE CD</h2>
+<p>После загрузки вы увидите консоль <code>bash</code>, в ней напишите:</p>
+<pre><code>quasar-install
+</code></pre>
+<p>После он предложит подключение к интернету. Выбираем установка если нам нужна именно установка на диск или chroot для восстановления системы.</p>
+<h3 id="_3">Первый этап установки</h3>
+<p><img alt="1 level" src="https://github.com/b-e-n-z1342/QuasarDEV-XLAM/blob/main/install/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%20%D0%BE%D1%82%202025-10-07%2017-06-24.png?raw=true" /></p>
+<p>Экспресс - запуск цепи модулей (разметка &gt; установка базы &gt; установка пакетов &gt; настройка пользователя &gt; установка загрузчика)</p>
+<p>разметка: выбор диска, именно (sda или nvme0n1) не надо писать /dev, установщик сам это делает. Разметка происходит в cfdisk, он проще в использовании, тут главное узнать какая у вас прошивка, если UEFI то <code>GPT</code>, если BIOS-Legacy то <code>DOS</code>.</p>
+<h3 id="uefi">Разметка для UEFI:</h3>
+<p>Стрелочками выбираем незанятое пространство, потом <code>new</code>, пишем в поле для ввода, 512m или или произвольный размер, но не меньше 512m. Затем стрелочками двигаем на <code>type</code> и стрелочками <code>вверх</code> листаем вверх до пункта <code>EFI</code> или <code>EFI partition</code>, но тут ошибиться тяжелее, он в самом вверху, самый первый.</p>
+<p>Остальное размечаем так же, но если вам нужен отдельный раздел для /homе то рекомендуется его сразу разметить и указать размер тот которых хотите для него. Для разделов <code>/</code> и <code>/home</code> надо ставить <code>Linux partition</code>. </p>
+<h3 id="legacy-bios">разметка для legacy-bios:</h3>
+<p>Стрелочками выбираем незанятое пространство, потом <code>new</code>, пишем в поле для ввода, 512m или или произвольный размер, но не меньше 512m. Двигать стрелочками что-то тут не обязательно. Как было так и оставьте, это на работу не влияет. Остальное размечаем так же, но если вам нужен отдельный раздел для /homе то рекомендуется его сразу разметить и указать размер тот которых хотите для него. Для разделов <code>/</code> и <code>/home</code> и не надо ничего ставить в <code>Type</code>, только оно уже называется не <code>Linux partition</code>, а просто <code>Linux</code>.</p>
+<h3 id="_4">Форматирование и монтирование</h3>
+<p>Следующие после разметки - форматировании. Первым будет раздел <code>/</code>, выбираем его так же, но только уже раздел, например: (sda2 или nvme0n1p2) без /dev. Сразу будет форматирование. На выбор три FS: <code>EXT4, BTRFS, XFS</code>, по тестам самые стабильные это - xfs и ext4. После разметки <code>/</code>. будет разметка загрузочного раздела, выбираем например (sda1 или nvme0n1p1) смотря что у вас. Форматирование сразу будет, если EFI то vfat (fat32), если mbr то (ext2). </p>
+<p>Следующие установщик предложит /home, если вы его делали на этапе с разметкой то выбирайте с /home, выбираете раздел, форматируете его в ту Файловую систему в которую хотите. Самые стабильные: ext4 и xfs, хотя и btrfs не так часто ломалась в этом месте.  </p>
+<h3 id="_5">Установка базы</h3>
+<p>Выбираете ядро: LTS, ZEN или просто linux.</p>
+<p>Linux-lts (LTS) - ядро GNU/linux с долгосрочной поддержкой, более стабильное, может быть менее производительным. Лучше подходит тем у кого ноутбуки, так как в дороге оно не сломается из-за обновления, или тем кому нужна стабильность, а не производительность.</p>
+<p>Linux-zen (ZEN) - ядро GNU/linux с целью в высокую производительность, низкие задержки, всего и побольше. Ядро тяжёлое и может  быть не стабильным, лучше подходит тем кому нужна игровая система. Не рекомендуется для рабочих ноутбуков или систем где стабильность важнее скорости.</p>
+<p>Linux (VANILE) - само ядро GNU/Linux, среднее по производительности и стабильности, универсальный вариант и для тех кто постоянно в работе где нужна стабильность и для игровых систем.</p>
+<p>На практике редко кто из них ломался, но иметь как fallback там тот же LTS ядро, не помешало бы.</p>
+<h3 id="_6">Установка пакетов (первый этап)</h3>
+<p>Пакеты тут выбраны как нужные для консольного linux, то есть без графической среды. Они устанавливаются после выбора их.</p>
+<p>Выбирать их нужно так: листаем стрелочками, выбираем пробелом, после жмём <code>enter</code> и идём дальше.</p>
+<h3 id="_7">Создание пользователя</h3>
+<ul>
+<li>
+<p>Имя пользователя: Введите имя для вашей учетной записи.</p>
+</li>
+<li>
+<p>Пароль пользователя: Придумайте и подтвердите пароль для вашего пользователя.</p>
+</li>
+<li>
+<p>Пароль root: На следующем этапе установщик запросит пароль для суперпользователя (root). Придумайте и подтвердите сложный и надежный пароль.</p>
+</li>
+</ul>
+<p>Примечание: В процессе вы можете увидеть много служебных сообщений (логов) — это нормально, просто следуйте данной инструкции.</p>
+<h2 id="_8">Установка загрузчика</h2>
+<h3 id="_9">Автоматическое определение режима загрузки</h3>
+<p>Установщик автоматически определяет режим загрузки системы:</p>
+<ul>
+<li><strong>UEFI</strong> - если обнаружена EFI-прошивка  </li>
+<li><strong>BIOS (Legacy)</strong> - в противном случае</li>
+</ul>
+<h2 id="uefi_1">Загрузчики для UEFI</h2>
+<h3 id="1-grub">1. GRUB</h3>
+<p><strong>Полнофункциональный загрузчик с поддержкой всех функций</strong></p>
+<ul>
+<li>Устанавливает пакеты: <code>grub</code>, <code>os-prober</code>, <code>efibootmgr</code></li>
+<li>Создает загрузочную запись с идентификатором "GRUB"</li>
+<li>Автоматически настраивает конфигурацию для Quasar Linux</li>
+<li>Поддерживает обнаружение других установленных ОС</li>
+</ul>
+<h3 id="2-efistub">2. EFISTUB</h3>
+<p><strong>Минималистичная загрузка через встроенный загрузчик UEFI</strong></p>
+<ul>
+<li>Устанавливает пакеты: <code>efibootmgr</code>, <code>os-prober</code></li>
+<li>Копирует ядро и initramfs в раздел EFI</li>
+<li>Создает прямую загрузочную запись в UEFI</li>
+<li>Параметры загрузки: <code>root=UUID=... rw initrd=\initramfs-linux.img</code></li>
+</ul>
+<h3 id="3-refind">3. rEFInd</h3>
+<p><strong>Красивый и функциональный загрузчик с графическим интерфейсом</strong></p>
+<ul>
+<li>Устанавливает пакеты: <code>efibootmgr</code>, <code>os-prober</code>, <code>refind</code></li>
+<li>Автоматическая установка через <code>refind-install</code></li>
+<li>Поддерживает автоматическое обнаружение ядер</li>
+<li>Современный интерфейс с темами оформления</li>
+</ul>
+<h2 id="bios-legacy">Загрузчики для BIOS (Legacy)</h2>
+<h3 id="1-grub-bios">1. GRUB для BIOS</h3>
+<p><strong>Классический загрузчик с полной функциональностью</strong></p>
+<ul>
+<li>Устанавливает пакеты: <code>grub</code>, <code>os-prober</code></li>
+<li>Устанавливает загрузчик на MBR диска (<code>/dev/sda</code> и т.д.)</li>
+<li>Настраивает конфигурацию для Quasar Linux</li>
+<li>Поддерживает все стандартные функции GRUB</li>
+</ul>
+<h3 id="2-syslinux">2. Syslinux</h3>
+<p><strong>Простой и надежный загрузчик</strong></p>
+<ul>
+<li>Устанавливает пакет: <code>syslinux</code></li>
+<li>Настраивает загрузочный раздел с <code>extlinux</code></li>
+<li>Копирует необходимые модули (.c32 файлы)</li>
+<li>Записывает MBR загрузчик</li>
+<li>Простая конфигурация через <code>syslinux.cfg</code></li>
+</ul>
+<h2 id="_10">Конфигурация загрузки</h2>
+<h3 id="_11">Параметры ядра по умолчанию:</h3>
+<ul>
+<li><strong>Root partition</strong>: автоматически определяется по UUID</li>
+<li><strong>Режим монтирования</strong>: <code>rw</code> (read-write)</li>
+<li><strong>Initramfs</strong>: загружается автоматически</li>
+<li><strong>Ядро</strong>: используется основное ядро системы</li>
+</ul>
+<h3 id="quasar-linux">Особенности для Quasar Linux:</h3>
+<ul>
+<li>Автоматическая установка дистрибутива в параметры загрузчика</li>
+<li>Поддержка всех основных ядер (linux, linux-zen, linux-lts)</li>
+<li>Настройка корректных путей для initramfs</li>
+</ul>
+<h2 id="_12">Рекомендации по выбору</h2>
+<table>
+<thead>
+<tr>
+<th>Загрузчик</th>
+<th>Рекомендуется для</th>
+<th>Особенности</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GRUB</strong></td>
+<td>Большинство пользователей</td>
+<td>Полная функциональность, поддержка dual-boot</td>
+</tr>
+<tr>
+<td><strong>EFISTUB</strong></td>
+<td>Минималисты, опытные пользователи</td>
+<td>Быстрая загрузка, минимальные зависимости</td>
+</tr>
+<tr>
+<td><strong>rEFInd</strong></td>
+<td>Пользователи UEFI, любители красивого интерфейса</td>
+<td>Автоопределение ядер, темы оформления</td>
+</tr>
+<tr>
+<td><strong>Syslinux</strong></td>
+<td>Простые конфигурации BIOS</td>
+<td>Надежность, простота настройки</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_13">Примечания</h2>
+<ul>
+<li>Все загрузчики автоматически настраивают правильные параметры для выбранного корневого раздела</li>
+<li>При наличии нескольких ядер в системе рекомендуется выбрать основной загрузчик (GRUB или rEFInd)</li>
+<li>Для UEFI-систем рекомендуется создавать отдельный EFI-раздел размером не менее 512 МБ</li>
+<li>!! refind и efistub не стабильны, efistub хорошо себя показал в qemu-kvm, refind не смог установиться как надо и терял ядро !!</li>
+<li>!! syslinux является экспериментальной !!</li>
+</ul>
+<h2 id="_14">Технические детали реализации</h2>
+<pre><code class="language-bash"># Автоматическое определение режима загрузки
+UEFI_MODE=0
+[ -d /sys/firmware/efi ] &amp;&amp; UEFI_MODE=1
+</code></pre>
+<pre><code># Определение корневого раздела и диска
+root_dev=$(findmnt -n -o SOURCE /mnt)
+ROOT_UUID=$(blkid -s UUID -o value &quot;$root_dev&quot;)
+</code></pre>
+<h2 id="_15">Пост установка (второй этап)</h2>
+<h2 id="_16">Активация</h2>
+<p>Для запуска пост этапа установки сделайте: 
+- войдите в свою учетную запись </p>
+<pre><code>login: &lt;ваш логин&gt;
+password: &lt;ваш пароль&gt;
+</code></pre>
+<ul>
+<li>после этого введите: </li>
+</ul>
+<pre><code>$ post_install
+</code></pre>
+<p>Может потребоваться подключиться к интернету, она точно такая же что и у первого этапа.  </p>
+<h2 id="_17">Опции меню</h2>
+<h3 id="1-">1. Экспресс-установка (все этапы)</h3>
+<p><strong>Полная автоматическая настройка системы</strong></p>
+<p>Выполняет все этапы последовательно:
+- Базовые пакеты (1 этап)
+- Окружение рабочего стола (2 этап) 
+- Настройка аудио-системы
+- Установка Wine
+- Настройка Android (Waydroid) 
+- Очистка системы</p>
+<p><em>После завершения предлагает перезагрузку системы</em></p>
+<h1 id="1">Этап 1: Базовые пакеты</h1>
+<h2 id="_18">Что устанавливается</h2>
+<p>После выбора этапа 1 откроется меню выбора пакетов. Отмечайте нужные пакеты пробелом и подтверждайте выбор Enter.</p>
+<h3 id="_19">Рекомендуемые пакеты (включены по умолчанию):</h3>
+<ul>
+<li><strong>go</strong> - язык программирования Go</li>
+<li><strong>qt5</strong> и <strong>qt6</strong> - библиотеки для приложений</li>
+<li><strong>x264</strong>, <strong>x265</strong> - кодеки для видео</li>
+<li><strong>openh264</strong> - кодек для браузеров</li>
+<li><strong>wayland</strong> - современный дисплейный сервер</li>
+<li><strong>gtk4</strong> - актуальные GTK библиотеки</li>
+<li><strong>libvirt</strong> - виртуализация</li>
+</ul>
+<h3 id="_20">Дополнительные пакеты (отключены по умолчанию):</h3>
+<ul>
+<li><strong>ffmpeg</strong> - работа с видео и аудио</li>
+<li><strong>gamemode</strong> - оптимизация для игр</li>
+<li><strong>polkit</strong> - управление правами доступа</li>
+<li><strong>xorg</strong> - классический дисплейный сервер (если Wayland не подходит)</li>
+<li><strong>qbittorrent</strong> - торрент-клиент</li>
+<li><strong>vlc</strong> - медиаплеер</li>
+<li><strong>krita</strong> - графический редактор</li>
+<li><strong>kdeconnect</strong> - связь с Android-устройствами</li>
+<li><strong>virt-manager</strong> - графический менеджер виртуализации</li>
+</ul>
+<hr />
+<h1 id="_21">Выбор окружения рабочего стола</h1>
+<p>После установки пакетов автоматически откроется меню выбора окружения.</p>
+<h2 id="_22">Доступные варианты:</h2>
+<h3 id="de">Окружения рабочего стола (DE):</h3>
+<ul>
+<li><strong>KDE Plasma</strong> - современное и функциональное</li>
+<li><strong>Xfce4</strong> - легкое и стабильное</li>
+<li><strong>Lxde</strong> - очень легкое для старых ПК</li>
+<li><strong>Lxqt</strong> - легкое на Qt</li>
+<li><strong>Gnome</strong> - современное и минималистичное</li>
+</ul>
+<h3 id="wm">Оконные менеджеры (WM):</h3>
+<ul>
+<li><strong>Hyprland</strong> - современный Wayland-композитор</li>
+<li><strong>i3wm</strong> - тайловый менеджер для Xorg</li>
+<li><strong>Sway</strong> - тайловый менеджер для Wayland</li>
+</ul>
+<hr />
+<h1 id="wine">Настройка Wine</h1>
+<h2 id="_23">Варианты установки:</h2>
+<h3 id="1-wine">1. Стандартный Wine</h3>
+<p>Базовая версия для запуска Windows-программ</p>
+<h3 id="2-wine-staging">2. Wine Staging</h3>
+<p>Более новые функции и исправления</p>
+<h3 id="3-wine-staging-dxvk-vkd3d">3. Wine-staging (DXVK VKD3D) (рекомендуется)</h3>
+<p><strong>Полный набор компонентов:</strong>
+- Все нужные шрифты
+- Библиотеки Visual C++ (2003-2022)
+- .NET Framework (2.0-4.8)
+- DirectX 9-11
+- Медиа-компоненты
+- Игровые технологии (DXVK, VKD3D)</p>
+<h3 id="4-wine-ge">4. Wine-GE</h3>
+<p>Специальная сборка для игр и приложений</p>
+<h3 id="5-proton-ge">5. Proton-GE</h3>
+<p>Для запуска игр через Steam</p>
+<h3 id="6-portproton">6. PortProton</h3>
+<p>Удобный лаунчер для игр и программ</p>
+<hr />
+<h1 id="android">Android на ПК</h1>
+<h2 id="waydroid">Waydroid</h2>
+<p>Запускает Android-приложения прямо в системе:</p>
+<ul>
+<li>Устанавливает контейнер Android</li>
+<li>Работает на Wayland</li>
+<li>Поддерживает Google Services</li>
+<li>Автоматически добавляется в автозагрузку</li>
+</ul>
+<h3 id="_24">После установки:</h3>
+<pre><code class="language-bash">waydroid show-full-ui  # запуск полноценного Android
+</code></pre>
+<h1 id="bilisos-qemukvm">BilisOS QEMU/KVM</h1>
+<p><strong>В разработке</strong> - полная виртуальная машина Android</p>
+<p>!!! Waydroid не работает на штатных ядрах, требует binder которого нет !!</p>
+<h1 id="_25">Настройка звука</h1>
+<h2 id="_26">Выберите звуковой сервер:</h2>
+<h3 id="1-pipewire">1. PipeWire (рекомендуется)</h3>
+<ul>
+<li>Современная замена PulseAudio</li>
+<li>Лучшая задержка для стриминга и записи</li>
+<li>Поддержка профессионального аудио</li>
+</ul>
+<h3 id="2-pulseaudio">2. PulseAudio</h3>
+<ul>
+<li>Классический звуковой сервер</li>
+<li>Проверенная стабильность</li>
+</ul>
+<h3 id="3-jack2">3. JACK2</h3>
+<ul>
+<li>Для профессиональной работы со звуком</li>
+<li>Минимальная задержка</li>
+</ul>
+<h1 id="_27">Очистка системы</h1>
+<h2 id="_28">Что очищается:</h2>
+<ul>
+<li>Временные файлы установки</li>
+<li>Кеш загруженных пакетов</li>
+<li>Старые версии пакетов</li>
+<li>Временные файлы в /var/tmp</li>
+</ul>
+<h2 id="_29">Рекомендации:</h2>
+<ul>
+<li>Выполняйте очистку после полной настройки системы</li>
+<li>Не влияет на ваши файлы и настройки</li>
+<li>Освобождает несколько гигабайт места</li>
+</ul>
+<h1 id="_30">Советы по установке</h1>
+<h2 id="_31">Для новых пользователей:</h2>
+<ul>
+<li>Выбирайте "Экспресс-установку"</li>
+<li>Для Wine берите вариант "Wine-staging (DXVK VKD3D)"</li>
+<li>Для звука выбирайте "PipeWire"</li>
+</ul>
+<h2 id="_32">Для игр:</h2>
+<ul>
+<li>Установите gamemode</li>
+<li>Выберите Wine-staging (DXVK VKD3D) или Wine-GE</li>
+<li>Рассмотрите вариант с Hyprland</li>
+</ul>
+<h2 id="_33">Для старых компьютеров:</h2>
+<ul>
+<li>Выбирайте LXDE или Xfce</li>
+<li>Не устанавливайте лишние пакеты</li>
+<li>Используйте PulseAudio вместо PipeWire</li>
+</ul>
+<h1 id="_34">Конец</h1>
+<p>После установки сделайте перезагрузку чтобы войти в новую систему!</p>
+<p>дополнительная информация:
+- <a href="">QuasarInstall wiki для разработчиков</a>
+- <a href="">Debugs</a></p>
+                </div>
+            </div>
+        </section>
+        
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="https://QuasarFoks.github.io/QuasarLinux">QuasarLinux</a>
+      <a href="https://t.me/quasar_foks">Телеграм</a>
+      <a href="https://github.com/QuasarFoks">GitHub</a>
+      <a href="https://gitlab.com/users/Quasar_benz/projects">GitLab</a>
+      <a href="https://QuasarFoks.github.io/policy">Политика</a>
+      <a href="https://sourceforge.net/u/quasarbenz/profile">SourceForge</a>
+    </div>
+    <p>© 2025 QuasarFoks Community. Все проекты распространяются под открытыми лицензиями.</p>
+    <p style="margin-top: 1rem; font-size: 0.8rem; color: #666;">
+       Сделано для энтузиастов GNU/Linux.
+    </p>
+  </footer>
+
+  <script>
+    // Мобильное меню
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const nav = document.querySelector('nav');
+
+      mobileMenuBtn.addEventListener('click', () => {
+        nav.classList.toggle('active');
+      });
+
+      // Закрываем меню при клике на ссылку
+      document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', () => {
+          nav.classList.remove('active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
