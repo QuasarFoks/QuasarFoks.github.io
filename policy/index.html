@@ -1,294 +1,372 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QuasarFoks — Официальная политика и структура</title>
-  <meta name="description" content="Официальные документы сообщества QuasarFoks: политика, правила присоединения, организационная структура.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #000;
-      --bg-soft: #0a0a0a;
-      --card-bg: #121212;
-      --text: #ffffff;
-      --text-muted: #a0a0a0;
-      --accent: #6d5dfc;
-      --accent-hover: #8a7dff;
-      --border-radius: 16px;
-      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Политика | QuasarFoks</title>
+    <link rel="stylesheet" href="../css/styls.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Простые стили для политики */
+        .policy-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        .policy-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid var(--color-border);
+        }
 
-    html {
-      scroll-behavior: smooth;
-    }
+        .policy-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+        .policy-header p {
+            color: var(--color-text-secondary);
+            font-size: 1.1rem;
+        }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2rem 2.1rem;
-      background: rgba(10, 10, 10, 0.85);
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
+        .policy-section {
+            margin-bottom: 40px;
+        }
 
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+        .policy-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .logo-container img {
-      height: 32px;
-      width: auto;
-      border-radius: 6px;
-    }
+        .policy-section h2 i {
+            font-size: 1.3rem;
+        }
 
-    .logo-text {
-      font-weight: 700;
-      font-size: 1.25rem;
-      background: linear-gradient(90deg, #ffffff, #aaa);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
+        .policy-section p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
 
-    nav a {
-      color: var(--text);
-      text-decoration: none;
-      margin-left: 1.5rem;
-      font-weight: 500;
-      font-size: 1rem;
-      position: relative;
-      transition: var(--transition);
-    }
+        .policy-list {
+            margin: 20px 0;
+            padding-left: 20px;
+        }
 
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      transition: width 0.3s ease;
-    }
+        .policy-list li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
 
-    nav a:hover {
-      color: var(--accent);
-    }
+        .warning {
+            background: rgba(220, 53, 69, 0.1);
+            border-left: 4px solid var(--color-danger);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
 
-    nav a:hover::after {
-      width: 100%;
-    }
+        .note {
+            background: var(--color-bg-tertiary);
+            border-left: 4px solid var(--color-primary);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
 
-    main {
-      margin-top: 80px;
-      padding: 4rem 5%;
-      max-width: 850px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+        .structure {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
 
-    h1 {
-      font-size: 2.4rem;
-      font-weight: 800;
-      margin-bottom: 2rem;
-      background: linear-gradient(90deg, #fff, #aaa);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
+        .structure-item {
+            background: var(--color-bg-tertiary);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+        }
 
-    h2 {
-      font-size: 1.45rem;
-      margin: 1.7rem 0 1rem;
-      color: var(--text);
-      font-weight: 700;
-    }
+        .structure-item h4 {
+            margin-bottom: 10px;
+            color: var(--color-primary);
+        }
 
-    .section {
-      margin-bottom: 3.5rem;
-    }
+        .licenses {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
 
-    .role, .rule-item {
-      background: var(--card-bg);
-      padding: 1.4rem;
-      border-radius: var(--border-radius);
-      margin-bottom: 1.2rem;
-      border: 1px solid rgba(255,255,255,0.05);
-    }
+        .license {
+            padding: 5px 12px;
+            background: var(--color-bg-tertiary);
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
 
-    .role h3, .rule-item h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.6rem;
-      color: var(--text);
-      font-weight: 600;
-    }
+        .telegram-channels {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+        }
 
-    p, ul {
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-      font-size: 1rem;
-    }
+        .telegram-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--color-text);
+            text-decoration: none;
+        }
 
-    ul {
-      padding-left: 1.5rem;
-    }
+        .telegram-link:hover {
+            color: var(--color-primary);
+        }
 
-    li {
-      margin-bottom: 0.55rem;
-    }
+        .policy-footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid var(--color-border);
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+        }
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
+        @media (max-width: 768px) {
+            .policy-container {
+                padding: 30px 15px;
+            }
 
-    a:hover {
-      text-decoration: underline;
-    }
+            .policy-header h1 {
+                font-size: 1.8rem;
+            }
 
-    footer {
-      text-align: center;
-      padding: 2.2rem;
-      background: var(--bg-soft);
-      color: var(--text-muted);
-      font-size: 0.93rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      margin-top: 3rem;
-    }
-
-    @media (max-width: 768px) {
-      header {
-        padding: 1rem;
-      }
-      nav {
-        display: none;
-      }
-      main {
-        padding: 3rem 5%;
-      }
-    }
-  </style>
+            .structure {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="logo-container">
-      <img src="https://raw.githubusercontent.com/QuasarFoks/QuasarDEV-XLAM/main/logo.png" alt="QuasarFoks Logo">
-      <span class="logo-text">QuasarFoks политика конфиденциальности</span>
-    </div>
-    <nav>
-      <a href="https://QuasarFoks.github.io">Главная</a>
-      <a href="#policy">Политика</a>
-      <a href="#rules">Правила</a>
-      <a href="#structure">Структура</a>
-      <a href="https://github.com/QuasarFoks">GitHub</a>
-    </nav>
-  </header>
+    <!-- Простая шапка -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Логотип -->
+                <a href="../index.html" class="logo-link" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+                    <div style="width: 48px; height: 48px; margin-right: 10px;">
+                        <img src="../logo/logo-rev-black.png" alt="QuasarFoks" class="logo-dark" style="width: 100%; height: 100%; object-fit: contain;">
+                        <img src="../logo/logo-rev.png" alt="QuasarFoks" class="logo-light" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <h1 style="margin: 0; font-size: 1.5rem; font-weight: 600;">Quasar<span style="color: var(--color-accent);">Foks</span></h1>
+                </a>
 
-  <main>
-    <!-- Политика -->
-    <section id="policy" class="section">
-      <h1>Официальная политика сообщества QuasarFoks</h1>
-      <p>Сообщество QuasarFoks (далее — «Сообщество») является добровольным, некоммерческим, open-source объединением лиц, действующим на принципах децентрализованного участия, технической прозрачности и пользовательского контроля. Сообщество не является юридическим лицом, коммерческой организацией, стартапом или государственной структурой.</p>
+                <!-- Простая навигация -->
+                <nav style="display: flex; gap: 5px;">
+                    <a href="../index.html" style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 8px; color: var(--color-text-secondary); text-decoration: none; font-weight: 500;">
+                        <i class="fas fa-home"></i> Главная
+                    </a>
+                    <a href="#policy" style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 8px; color: var(--color-text-secondary); text-decoration: none; font-weight: 500;">
+                        <i class="fas fa-file-alt"></i> Политика
+                    </a>
+                </nav>
 
-      <h2>1. Принципы взаимодействия</h2>
-      <p>Все участники обязаны соблюдать нормы уважительного общения. Запрещены: оскорбления, дискриминация, принуждение, агрессивное поведение, а также обсуждение тем, не относящихся к технической или организационной деятельности Сообщества.</p>
-      <p>Категорически запрещено обсуждение: вооружённых конфликтов, политических партий, пропаганды наркотических веществ, алкоголя, табачной продукции и иных тем, способных вызвать раскол или нарушить безопасную среду участников.</p>
+                <!-- Переключатель темы -->
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div id="themeToggle" style="width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: var(--color-bg-tertiary); color: var(--color-text); cursor: pointer; transition: all 0.3s ease;">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-      <h2>2. Интеллектуальная собственность и лицензирование</h2>
-      <p>Все проекты Сообщества распространяются под открытыми лицензиями (MIT, BSD, GPL, Apache). Любое производное произведение обязано чётко указывать первоисточник и сохранять условия лицензии. Форки без технического или этического обоснования не поощряются.</p>
+    <!-- Контент -->
+    <main>
+        <div class="policy-container">
+            <div class="policy-header" id="policy">
+                <h1>Политика сообщества QuasarFoks</h1>
+                <p>Официальные правила и принципы нашего сообщества</p>
+            </div>
 
-      <h2>3. Организационная прозрачность</h2>
-      <p>Руководство Сообществом осуществляет основной мейнтейнер. Все проекты находятся под кураторством назначенных мейнтейнеров, подотчётных основному мейнтейнеру. Решения принимаются открыто, с возможностью обсуждения в рамках технической целесообразности.</p>
+            <!-- Основная информация -->
+            <section class="policy-section">
+                <h2><i class="fas fa-info-circle"></i> О сообществе</h2>
+                <p>QuasarFoks — добровольное, некоммерческое open-source сообщество. Мы не являемся юридическим лицом, коммерческой организацией или стартапом.</p>
+                <p>Действуем на принципах децентрализации, технической прозрачности и пользовательского контроля.</p>
+            </section>
 
-      <h2>4. Конфиденциальность</h2>
-      <p>Сообщество не осуществляет сбор, хранение или обработку персональных данных. Используемые сторонние платформы (включая, но не ограничиваясь: GitHub, GitLab, Telegram) могут обрабатывать данные в соответствии с собственными политиками конфиденциальности, за что Сообщество ответственности не несёт.</p>
+            <!-- Правила общения -->
+            <section class="policy-section">
+                <h2><i class="fas fa-comments"></i> Правила общения</h2>
+                <ul class="policy-list">
+                    <li>Уважительное отношение ко всем участникам</li>
+                    <li>Только технические и организационные темы</li>
+                    <li>Конструктивная критика приветствуется</li>
+                </ul>
 
-      <h2>5. Изменение настоящей политики</h2>
-      <p>Настоящая политика может быть изменена по усмотрению основного мейнтейнера. Уведомление об изменениях публикуется в официальных Telegram-каналах:
-        <a href="https://t.me/QuasarFoks" target="_blank">@QuasarFoks</a>,
-        <a href="https://t.me/QuasarLinux" target="_blank">@QuasarLinux</a>,
-        <a href="https://t.me/BlazarLinux" target="_blank">@BlazarLinux</a>.
-      </p>
-    </section>
+                <div class="warning">
+                    <p><strong>Запрещено:</strong> оскорбления, дискриминация, политика, религия, пропаганда вредных привычек, обсуждение конфликтов.</p>
+                </div>
+            </section>
 
-    <!-- Правила присоединения -->
-    <section id="rules" class="section">
-      <h1>Правила присоединения к Сообществу</h1>
-      <div class="rule-item">
-        <h3>1. Соответствие ценностям</h3>
-        <p>Участник обязан разделять ключевые ценности: открытость, ремонтопригодность, пользовательский контроль и техническую честность.</p>
-      </div>
-      <div class="rule-item">
-        <h3>2. Поведенческие нормы</h3>
-        <p>Любые формы токсичного поведения влекут немедленное исключение без предварительного предупреждения.</p>
-      </div>
-      <div class="rule-item">
-        <h3>3. Порядок вступления</h3>
-        <p>Формальных процедур вступления не предусмотрено. Заинтересованные лица могут инициировать контакт через официальные Telegram-каналы.</p>
-      </div>
-      <div class="rule-item">
-        <h3>4. Форки и модификации</h3>
-        <p>Форки допустимы исключительно при наличии обоснованной технической или этической необходимости. Форки ради самопиара или дублирования функционала не допускаются.</p>
-      </div>b-e-n-z1342
-      <div class="rule-item">
-        <h3>5. Финансовая независимость</h3>
-        <p>Сообщество не имеет единого бюджета. Пожертвования разрешены участникам исключительно для покрытия личных технических расходов (оборудование, хостинг и т.п.).</p>
-      </div>
-    </section>
+            <!-- Лицензии -->
+            <section class="policy-section">
+                <h2><i class="fas fa-balance-scale"></i> Лицензии</h2>
+                <p>Все проекты под открытыми лицензиями:</p>
+                <div class="licenses">
+                    <span class="license">MIT</span>
+                    <span class="license">BSD</span>
+                    <span class="license">GPL</span>
+                    <span class="license">Apache</span>
+                </div>
+                <p>Форки должны указывать источник и сохранять лицензию. Форки без технической необходимости не приветствуются.</p>
+            </section>
 
-    <!-- Структура -->
-    <section id="structure" class="section">
-      <h1>Организационная структура</h1>
-      <div class="role">
-        <h3>BDFL</h3>
-        <p>Единоличный руководитель Сообщества. Обладает правом окончательного решения по всем вопросам стратегического и технического характера.</p>
-      </div>
-      <div class="role">
-        <h3>Мейнтейнеры проектов</h3>
-        <p>Ответственные за сопровождение конкретных проектов: <strong>systemd-rc</strong>, <strong>QuasarLinux</strong>, <strong>BlazarLinux</strong>, <strong>ROL</strong>. Подчиняются основному мейнтейнеру.</p>
-      </div>
-      <div class="role">
-        <h3>Контентбьютеры</h3>
-        <p>Осуществляют документирование изменений, подготовку анонсов и публикаций. Не участвуют в разработке кода.</p>
-      </div>
-      <div class="role">
-        <h3>Тестеровщики</h3>
-        <p>Проводят независимое тестирование релизов и сборок. Могут участвовать в любом проекте по собственному усмотрению.</p>
-      </div>
-      <div class="role">
-        <h3>Финансовая модель</h3>
-        <p>Донаты носят исключительно индивидуальный характер и не аккумулируются на уровне Сообщества. Использование средств — на усмотрение получателя, при условии соответствия целям технической поддержки.</p>
-      </div>
-    </section>
-  </main>
+            <!-- Организация -->
+            <section class="policy-section">
+                <h2><i class="fas fa-sitemap"></i> Организация</h2>
+                <div class="structure">
+                    <div class="structure-item">
+                        <h4>BDFL</h4>
+                        <p>Основной руководитель, окончательные решения</p>
+                    </div>
+                    <div class="structure-item">
+                        <h4>Мейнтейнеры</h4>
+                        <p>Отвечают за конкретные проекты</p>
+                    </div>
+                    <div class="structure-item">
+                        <h4>Контент</h4>
+                        <p>Документация и публикации</p>
+                    </div>
+                    <div class="structure-item">
+                        <h4>Тестировщики</h4>
+                        <p>Независимое тестирование сборок</p>
+                    </div>
+                </div>
+            </section>
 
-  <footer>
-    <p>© 2025 QuasarFoks. Настоящий документ не является юридическим договором и не создаёт обязательств в рамках гражданского законодательства. Всё открыто. Всё под контролем.</p>
-  </footer>
+            <!-- Конфиденциальность -->
+            <section class="policy-section">
+                <h2><i class="fas fa-shield-alt"></i> Конфиденциальность</h2>
+                <p>Сообщество не собирает и не хранит персональные данные.</p>
+                <p>Сторонние платформы (GitHub, GitLab, Telegram) имеют свои политики конфиденциальности.</p>
+            </section>
+
+            <!-- Присоединение -->
+            <section class="policy-section">
+                <h2><i class="fas fa-user-plus"></i> Как присоединиться</h2>
+                <ul class="policy-list">
+                    <li>Разделять наши ценности</li>
+                    <li>Уважать других участников</li>
+                    <li>Писать в Telegram-каналы</li>
+                    <li>Формальных процедур нет</li>
+                </ul>
+                <div class="note">
+                    <p>Токсичное поведение = немедленное исключение.</p>
+                </div>
+            </section>
+
+            <!-- Финансы -->
+            <section class="policy-section">
+                <h2><i class="fas fa-coins"></i> Финансы</h2>
+                <p>Нет общего бюджета. Донаты индивидуальны.</p>
+                <p>Средства используются на оборудование, хостинг, домены.</p>
+            </section>
+
+            <!-- Обновления -->
+            <section class="policy-section">
+                <h2><i class="fas fa-sync-alt"></i> Обновления политики</h2>
+                <p>Политика меняется по решению основного мейнтейнера.</p>
+                <p>Уведомления в Telegram:</p>
+                <div class="telegram-channels">
+                    <a href="https://t.me/QuasarFoks" target="_blank" class="telegram-link">
+                        <i class="fab fa-telegram"></i> @QuasarFoks
+                    </a>
+                    <a href="https://t.me/QuasarLinux" target="_blank" class="telegram-link">
+                        <i class="fab fa-telegram"></i> @QuasarLinux
+                    </a>
+                    <a href="https://t.me/BlazarLinux" target="_blank" class="telegram-link">
+                        <i class="fab fa-telegram"></i> @BlazarLinux
+                    </a>
+                </div>
+            </section>
+
+            <div class="policy-footer">
+                <p>© 2025 QuasarFoks. Открытое ПО, открытое сообщество.</p>
+                <p>Все изменения вступают в силу после публикации.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Кнопка наверх -->
+    <button class="scroll-top" id="scrollTop" title="Наверх">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Простой JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Тема
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = themeToggle.querySelector('i');
+
+            let theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+            themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+
+            themeToggle.addEventListener('click', function() {
+                theme = theme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+                themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            });
+
+            // Наверх
+            const scrollTopBtn = document.getElementById('scrollTop');
+
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollTopBtn.style.display = 'flex';
+                } else {
+                    scrollTopBtn.style.display = 'none';
+                }
+            });
+
+            scrollTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Простая навигация
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const id = this.getAttribute('href').substring(1);
+                        const element = document.getElementById(id);
+                        if (element) {
+                            window.scrollTo({
+                                top: element.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
