@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuasarLinux | Установка</title>
+    <link rel="stylesheet" href="../../../css/styls.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Дополнительные стили для документации */
+        .docs-page-section {
+            padding: 60px 0;
+            background-color: var(--color-bg);
+        }
+
+        .docs-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--color-bg-secondary);
+            border-radius: var(--border-radius);
+            padding: 50px;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 10px 30px var(--color-shadow);
+        }
+
+        .docs-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        .docs-header h1 {
+            color: var(--color-primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .docs-header .subtitle {
+            color: var(--color-text-secondary);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .docs-content {
+            line-height: 1.8;
+        }
+
+        .docs-content h2 {
+            color: var(--color-primary);
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .docs-content h3 {
+            color: var(--color-accent);
+            margin: 30px 0 15px;
+        }
+
+        .docs-content h4 {
+            color: var(--color-text);
+            margin: 25px 0 10px;
+        }
+
+        .docs-content p {
+            margin-bottom: 20px;
+            color: var(--color-text-secondary);
+        }
+
+        .docs-content ul, .docs-content ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+
+        .docs-content li {
+            margin-bottom: 10px;
+            color: var(--color-text-secondary);
+        }
+
+        .docs-content pre {
+            background-color: var(--color-bg-tertiary);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+            border: 1px solid var(--color-border);
+        }
+
+        .docs-content code {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--color-bg-tertiary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--color-success);
+        }
+
+        .docs-content pre code {
+            background: none;
+            padding: 0;
+            border-radius: 0;
+            color: var(--color-text);
+        }
+
+        .docs-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background-color: var(--color-bg-tertiary);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+        }
+
+        .docs-content th {
+            background-color: var(--color-primary);
+            color: white;
+            font-weight: 600;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .docs-content td {
+            padding: 15px;
+            border-bottom: 1px solid var(--color-border);
+            color: var(--color-text-secondary);
+        }
+
+        .docs-content tr:last-child td {
+            border-bottom: none;
+        }
+
+        .docs-content tr:hover {
+            background-color: rgba(74, 144, 226, 0.05);
+        }
+
+        .warning-box {
+            background-color: rgba(255, 107, 107, 0.1);
+            border-left: 4px solid var(--color-danger);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: var(--border-radius);
+        }
+
+        .info-box {
+            background-color: rgba(74, 144, 226, 0.1);
+            border-left: 4px solid var(--color-primary);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: var(--border-radius);
+        }
+
+        .note {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid var(--color-warning);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: var(--border-radius);
+            font-style: italic;
+        }
+
+        .command {
+            background-color: var(--color-bg-tertiary);
+            border-left: 4px solid var(--color-success);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: var(--border-radius);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background-color: var(--color-primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .docs-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        @media (max-width: 768px) {
+            .docs-container {
+                padding: 30px 20px;
+            }
+
+            .docs-content table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .docs-navigation {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="../../index.html" class="logo-link" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+                        <div class="logo-img">
+                            <img src="../../../logo/logo-rev-black.png" alt="QuasarFoks Logo" class="logo-dark">
+                            <img src="../../../logo/logo-rev.png" alt="QuasarFoks Logo" class="logo-light">
+                        </div>
+                        <div class="logo-text">
+                            <h1 style="margin: 0; font-size: 1.5rem;">Quasar<span>Linux</span></h1>
+                            <p class="logo-subtitle" style="margin: 0; font-size: 0.75rem;">Документация по установке</p>
+                        </div>
+                    </a>
+                </div>
+
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="../../index.html" class="nav-link"><i class="fas fa-home"></i> Главная</a></li>
+                        <li><a href="../../index.html#features" class="nav-link"><i class="fas fa-star"></i> Особенности</a></li>
+                        <li><a href="../../index.html#screenshots" class="nav-link"><i class="fas fa-image"></i> Скриншоты</a></li>
+                        <li><a href="../../index.html#download" class="nav-link"><i class="fas fa-download"></i> Скачать</a></li>
+                        <li><a href="#" class="nav-link active"><i class="fas fa-book"></i> Установка</a></li>
+                    </ul>
+                </nav>
+
+                <div class="header-controls">
+                    <div class="theme-toggle" id="themeToggle" title="Сменить тему">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <a href="https://github.com/QuasarFoks/QuasarLinux" target="_blank" class="github-link" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент документации -->
+    <main class="main-content">
+        <section class="docs-page-section" id="installation">
+            <div class="container">
+                <div class="docs-container">
+                    <div class="docs-header">
+                        <h1><i class="fas fa-download"></i> Документация по установке QuasarLinux</h1>
+                        <p class="subtitle">Полное руководство по установке QuasarLinux SE и REV редакций</p>
+                        <div class="distro-badges" style="justify-content: center; margin-top: 20px;">
+                            <span class="badge badge-artix">Based on Artix</span>
+                            <span class="badge badge-openrc">OpenRC</span>
+                            <span class="badge badge-minimal">QuasarInstall</span>
+                        </div>
+                    </div>
+
+                    <div class="docs-content">
+                        <h2>Введение</h2>
+                        <p>QuasarLinux — это дистрибутив Linux, основанный на Artix Linux и использующий систему инициализации OpenRC. Дистрибутив делится на редакции <strong>PRO</strong>, <strong>SE</strong> и <strong>REV</strong>. Каждая редакция имеет свои особенности, но их объединяет одно — использование установщика <strong>QuasarInstall</strong>.</p>
+
+                        <div class="info-box">
+                            <p><strong>QuasarLinux SE (Second Edition)</strong> — это монолитная операционная система, построенная на базе редакции REV.</p>
+                        </div>
+
+                        <h2>Что такое QuasarInstall</h2>
+                        <p><strong>QuasarInstall</strong> — это модульный установщик для QuasarLinux и операционных систем семейства QuasarFoks.</p>
+
+                        <div class="command">
+                            Текущая версия QuasarInstall: <strong>2.9-from-3.0</strong>
+                        </div>
+
+                        <h2>Возможности и отличия от сторонних установщиков</h2>
+                        <p>Основные отличия QuasarInstall от Calamares:</p>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Критерий</th>
+                                    <th>QuasarInstall</th>
+                                    <th>Calamares</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Модульность</td>
+                                    <td>Да</td>
+                                    <td>Да</td>
+                                </tr>
+                                <tr>
+                                    <td>Автоматическая установка</td>
+                                    <td>Есть</td>
+                                    <td>Нет</td>
+                                </tr>
+                                <tr>
+                                    <td>Сложность</td>
+                                    <td>Низкая</td>
+                                    <td>Высокая</td>
+                                </tr>
+                                <tr>
+                                    <td>Порог входа</td>
+                                    <td>Высокий</td>
+                                    <td>Низкий</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h2>Профили и автоматическая установка</h2>
+                        <p>Ключевая особенность QuasarInstall — <strong>профили установки</strong>. Профили представляют собой обычные <code>sh</code>-скрипты. Ранее использовалась post-установка, но позже она была полностью заменена профилями.</p>
+
+                        <h3>Профили по умолчанию</h3>
+                        <ul>
+                            <li><strong>AI</strong> — для задач машинного обучения и вычислений</li>
+                            <li><strong>Gaming</strong> — оптимизирован для игр</li>
+                            <li><strong>Default</strong> — стандартная сборка</li>
+                            <li><strong>Custom</strong> — полная ручная настройка</li>
+                        </ul>
+
+                        <h3>Профиль AI</h3>
+                        <p>Профиль предназначен для задач машинного обучения, вычислений и работы с ИИ.</p>
+
+                        <h4>Базовые пакеты:</h4>
+                        <pre><code>mesa vulkan-icd-loader xf86-video-vesa xf86-video-fbdev</code></pre>
+
+                        <h4>AMD:</h4>
+                        <pre><code>xf86-video-amdgpu rocm-hip-sdk rocm-opencl-sdk rocm-ml-sdk
+vulkan-radeon libva-mesa-driver mesa-vdpau mesa</code></pre>
+
+                        <h4>NVIDIA:</h4>
+                        <pre><code>nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings
+cuda cudnn python-pytorch-cuda tensorflow-cuda</code></pre>
+
+                        <h4>Intel:</h4>
+                        <pre><code>xf86-video-intel vulkan-intel lib32-vulkan-intel
+intel-media-driver libva-intel-driver intel-compute-runtime</code></pre>
+
+                        <h4>Дополнительные пакеты:</h4>
+                        <pre><code>python python-pip python-virtualenv python-numpy python-scipy
+python-matplotlib python-pandas cmake ninja openblas lapack fftw</code></pre>
+
+                        <div class="warning-box">
+                            <p><strong>Важно:</strong> профиль AI <strong>не поддерживает виртуальные видеодрайверы</strong> (VirtIO, VMware и аналоги).</p>
+                        </div>
+
+                        <h3>Профиль Gaming</h3>
+                        <p>Профиль ориентирован на игры и низкую латентность.</p>
+
+                        <h4>Драйверы:</h4>
+                        <ul>
+                            <li>AMD — RADV (Open Source Vulkan-драйвер)</li>
+                            <li>NVIDIA — официальный проприетарный драйвер</li>
+                            <li>Intel — vulkan-intel</li>
+                        </ul>
+
+                        <h4>Системные оптимизации</h4>
+                        <p><code>/etc/sysctl.d/99-gaming.conf</code></p>
+                        <pre><code>vm.max_map_count = 16777216
+fs.file-max = 524288
+kernel.pid_max = 4194303
+fs.inotify.max_user_watches = 524288
+
+net.core.rmem_max = 134217728
+net.core.wmem_max = 134217728
+net.ipv4.tcp_rmem = 4096 87380 134217728
+net.ipv4.tcp_wmem = 4096 65536 134217728
+net.ipv4.tcp_congestion_control = bbr</code></pre>
+
+                        <p><code>/etc/conf.d/cpupower</code></p>
+                        <pre><code>governor="ondemand"
+min_freq="0"
+max_freq="0"</code></pre>
+
+                        <h4>Пакеты:</h4>
+                        <pre><code>plasma pipewire onlyoffice firefox portproton</code></pre>
+
+                        <div class="note">
+                            <p>Решение по поводу <code>onlyoffice</code> и <code>firefox</code> не окончательное и может быть изменено.</p>
+                        </div>
+
+                        <h3>Профиль Default</h3>
+                        <p>Стандартная сборка QuasarLinux. Аналогична Gaming-профилю, но <strong>без изменения системных конфигураций</strong>.</p>
+
+                        <h4>Драйверы:</h4>
+                        <ul>
+                            <li>AMD — RADV</li>
+                            <li>NVIDIA — официальный драйвер</li>
+                            <li>Intel — vulkan-intel</li>
+                        </ul>
+
+                        <h4>Пакеты:</h4>
+                        <pre><code>plasma pipewire onlyoffice firefox portproton</code></pre>
+
+                        <h3>Профиль Custom</h3>
+                        <p>Профиль с полной ручной настройкой компонентов.</p>
+
+                        <h4>Драйверы</h4>
+                        <p><strong>AMD:</strong></p>
+                        <ul>
+                            <li>RADV — высокопроизводительный Open Source драйвер (рекомендуется для игр)</li>
+                            <li>AMDVLK — официальный драйвер от AMD</li>
+                            <li>2D Driver — только 2D-графика (GUI / консоль)</li>
+                            <li>ROMc — ML/AI-ориентированная подсистема (обычно с 2D-драйвером)</li>
+                        </ul>
+
+                        <p><strong>NVIDIA:</strong></p>
+                        <ul>
+                            <li>Официальный проприетарный драйвер</li>
+                        </ul>
+
+                        <p><strong>Intel:</strong></p>
+                        <ul>
+                            <li>Open Source драйвер</li>
+                        </ul>
+
+                        <p><strong>VM:</strong></p>
+                        <ul>
+                            <li>Драйверы от производителя или сообщества виртуальной машины</li>
+                        </ul>
+
+                        <h4>Компоненты</h4>
+                        <p><strong>DE:</strong> Plasma, Xfce, LXDE, LXQt, GNOME (нестабильно)</p>
+                        <p><strong>WM:</strong> Sway, Hyprland, i3wm</p>
+
+                        <h2>Аудиосистемы</h2>
+                        <ul>
+                            <li><strong>PipeWire</strong> — современный мультимедийный сервер (по умолчанию)</li>
+                            <li><strong>PulseAudio</strong> — классический звуковой сервер</li>
+                            <li><strong>JACK</strong> — профессиональный сервер с низкой задержкой (может работать совместно с PipeWire)</li>
+                        </ul>
+
+                        <h2>Установка QuasarLinux REV</h2>
+                        <p>QuasarInstall в редакции REV полностью модульный (в SE используется фиксированный порядок модулей).</p>
+
+                        <h3>Этапы установки</h3>
+                        <ol>
+                            <li>Системные требования и подготовка</li>
+                            <li>Загрузка с носителя</li>
+                            <li>Работа в LiveCD</li>
+                            <li>Запуск установщика</li>
+                            <li>Пошаговая установка (Custom-профиль)</li>
+                            <li>Создание пользователя</li>
+                            <li>Установка загрузчика</li>
+                            <li>Первичная настройка системы (опционально)</li>
+                        </ol>
+
+                        <h3>Системные требования</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Компонент</th>
+                                    <th>Минимальные</th>
+                                    <th>Рекомендуемые</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Процессор</td>
+                                    <td>x86_64</td>
+                                    <td>x86_64 + SSE4.1</td>
+                                </tr>
+                                <tr>
+                                    <td>ОЗУ</td>
+                                    <td>1 ГБ</td>
+                                    <td>6 ГБ</td>
+                                </tr>
+                                <tr>
+                                    <td>Видеокарта</td>
+                                    <td>1366x768</td>
+                                    <td>Vulkan-совместимая</td>
+                                </tr>
+                                <tr>
+                                    <td>Хранилище</td>
+                                    <td>20 ГБ</td>
+                                    <td>40 ГБ</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="note">
+                            <p>Рекомендуемые требования рассчитаны на комфортную работу с графикой, играми и тяжёлыми задачами.</p>
+                        </div>
+
+                        <h3>Подготовка</h3>
+                        <h4>Определение типа прошивки</h4>
+                        <div class="command">
+                            ls /sys/firmware/efi
+                        </div>
+                        <ul>
+                            <li>Каталог существует — <strong>UEFI</strong></li>
+                            <li>Каталога нет — <strong>Legacy BIOS</strong></li>
+                        </ul>
+
+                        <h4>Рекомендации</h4>
+                        <p><strong>UEFI:</strong></p>
+                        <ul>
+                            <li>Отключить Secure Boot</li>
+                            <li>Отключить Fast Boot</li>
+                        </ul>
+
+                        <p><strong>Legacy BIOS:</strong></p>
+                        <ul>
+                            <li>Изменения не требуются</li>
+                        </ul>
+
+                        <h3>Запись ISO</h3>
+                        <p>ISO можно скачать:</p>
+                        <ul>
+                            <li>с официального сайта QuasarLinux</li>
+                            <li>из GitHub Releases</li>
+                        </ul>
+
+                        <p>Рекомендуемые утилиты записи:</p>
+                        <ul>
+                            <li>Rufus</li>
+                            <li>balenaEtcher</li>
+                            <li>Ventoy (возможны ошибки)</li>
+                        </ul>
+
+                        <h3>Загрузка с носителя</h3>
+                        <p>В меню загрузчика выберите:</p>
+                        <div class="command">
+                            From ISO/CD/DVD QuasarLinux x86_64
+                        </div>
+
+                        <h3>LiveCD и ISO-SDK</h3>
+                        <p>После выбора языка запускается <strong>ISO-SDK</strong> — инструмент для:</p>
+                        <ul>
+                            <li>входа в chroot</li>
+                            <li>установки системы</li>
+                            <li>восстановления (в разработке)</li>
+                            <li>запуска Live-среды</li>
+                        </ul>
+
+                        <h3>Установка (Install OS)</h3>
+                        <h4>Parted-модуль</h4>
+                        <p>Автоматическая или ручная разметка диска через <code>cfdisk</code>.</p>
+
+                        <p><strong>UEFI:</strong></p>
+                        <ul>
+                            <li>ESP: 256–512 МБ (EFI Partition)</li>
+                            <li>root: остальное пространство (Linux filesystem)</li>
+                        </ul>
+
+                        <p><strong>Legacy BIOS:</strong></p>
+                        <ul>
+                            <li>boot: 256–512 МБ</li>
+                            <li>root: остальное пространство</li>
+                        </ul>
+
+                        <h4>BasePack</h4>
+                        <p>Установка базовой системы и ядра:</p>
+                        <ul>
+                            <li><strong>lts</strong> — долгосрочная поддержка</li>
+                            <li><strong>zen</strong> — производительность</li>
+                            <li><strong>vanilla</strong> — стандартное ядро</li>
+                        </ul>
+
+                        <h4>Профили установки</h4>
+                        <p>Выбор одного из профилей:</p>
+                        <ul>
+                            <li>Custom</li>
+                            <li>Default</li>
+                            <li>AI</li>
+                            <li>Gaming</li>
+                        </ul>
+
+                        <h4>Создание пользователя</h4>
+                        <ul>
+                            <li>Создание пользователя</li>
+                            <li>Установка пароля пользователя</li>
+                            <li>Установка пароля root</li>
+                        </ul>
+
+                        <h4>Установка загрузчика</h4>
+                        <p><strong>UEFI:</strong></p>
+                        <ul>
+                            <li>GRUB</li>
+                            <li>EFISTUB</li>
+                            <li>rEFInd</li>
+                        </ul>
+
+                        <p><strong>Legacy BIOS:</strong></p>
+                        <ul>
+                            <li>GRUB</li>
+                            <li>Syslinux</li>
+                        </ul>
+
+                        <h3>Завершение установки</h3>
+                        <ol>
+                            <li>Выход из установщика</li>
+                            <li>Перезагрузка системы</li>
+                            <li>Извлечение установочного носителя</li>
+                        </ol>
+
+                        <div class="info-box">
+                            <p>Документация завершена и готова к использованию.</p>
+                        </div>
+
+                        <div class="docs-navigation">
+                            <a href="../index.html#download" class="btn btn-outline">
+                                <i class="fas fa-arrow-left"></i> Вернуться к загрузке
+                            </a>
+                            <a href="../index.html" class="btn btn-primary">
+                                <i class="fas fa-home"></i> На главную
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="footer-logo-img">
+                            <img src="../logo/logo-rev-black.png" alt="QuasarFoks Logo" class="logo-dark">
+                            <img src="../logo/logo-rev.png" alt="QuasarFoks Logo" class="logo-light">
+                        </div>
+                        <div class="footer-logo-text">
+                            <h3>Quasar<span>Linux</span></h3>
+                            <p class="logo-subtitle">Документация по установке</p>
+                        </div>
+                    </div>
+                    <p class="footer-description">Полное руководство по установке QuasarLinux с OpenRC.</p>
+                    <div class="social-links">
+                        <a href="https://github.com/QuasarFoks/QuasarLinux" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://t.me/quasarfoks" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="https://wiki.quasarfoks.org/quasarlinux" target="_blank" title="Документация"><i class="fas fa-book"></i></a>
+                        <a href="https://sourceforge.net/projects/quasarfoks/" target="_blank" title="SourceForge"><i class="fab fa-osi"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Документация</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-download"></i> Установка</a></li>
+                        <li><a href="../wiki/quasarlinux/openrc/"><i class="fas fa-bolt"></i> OpenRC руководство</a></li>
+                        <li><a href="../wiki/quasarlinux/kernels/"><i class="fas fa-microchip"></i> Кастомные ядра</a></li>
+                        <li><a href="../wiki/quasarlinux/customization/"><i class="fas fa-sliders-h"></i> Настройка системы</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Ресурсы</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html"><i class="fas fa-home"></i> Главная QuasarFoks</a></li>
+                        <li><a href="../index.html#features"><i class="fas fa-star"></i> Особенности</a></li>
+                        <li><a href="../index.html#screenshots"><i class="fas fa-image"></i> Скриншоты</a></li>
+                        <li><a href="../index.html#download"><i class="fas fa-download"></i> Скачать</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 QuasarFoks. QuasarLinux распространяется под лицензией GPL v3.</p>
+                <p>Использует OpenRC вместо systemd для большего контроля над системой.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Кнопка "Наверх" -->
+    <button class="scroll-top" id="scrollTop" title="Наверх">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Переключение темы
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = themeToggle.querySelector('i');
+
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+
+                themeToggle.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    themeToggle.style.transform = 'scale(1)';
+                }, 200);
+            });
+
+            function updateThemeIcon(theme) {
+                themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            }
+
+            // Плавный скролл
+            const scrollLinks = document.querySelectorAll('.scroll-link, .nav-link');
+            scrollLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = href.substring(1);
+                        const targetElement = document.getElementById(targetId);
+
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+
+                            document.querySelectorAll('.nav-link').forEach(navLink => {
+                                navLink.classList.remove('active');
+                            });
+                            this.classList.add('active');
+                        }
+                    }
+                });
+            });
+
+            // Кнопка "Наверх"
+            const scrollTopBtn = document.getElementById('scrollTop');
+
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollTopBtn.classList.add('visible');
+                } else {
+                    scrollTopBtn.classList.remove('visible');
+                }
+            });
+
+            scrollTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Подсветка синтаксиса для блоков кода
+            const codeBlocks = document.querySelectorAll('pre code');
+            codeBlocks.forEach(block => {
+                const text = block.textContent;
+                // Простая подсветка для команды ls
+                block.innerHTML = text.replace(
+                    /(ls \/sys\/firmware\/efi)/g,
+                    '<span class="terminal-green">$1</span>'
+                );
+            });
+
+            // Добавление иконок к заголовкам
+            const headers = document.querySelectorAll('.docs-content h2');
+            headers.forEach(header => {
+                const icon = document.createElement('i');
+                icon.className = 'fas fa-bookmark';
+                icon.style.marginRight = '10px';
+                icon.style.color = 'var(--color-primary)';
+                header.prepend(icon);
+            });
+        });
+    </script>
+</body>
+</html>
