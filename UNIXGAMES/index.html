@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIX GAMES · PortProton для BSD</title>
+    <link rel="stylesheet" href="../css/styls.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Минимальные правки */
+        .main-header {
+            height: 60px;
+        }
+        .hero-section {
+            padding: 40px 0;
+        }
+        .features-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="main-header">
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-terminal"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>UNIX<span>GAMES</span></h1>
+                    <p class="logo-subtitle">QuasarFoks · для BSD</p>
+                </div>
+            </div>
+
+            <div class="header-controls">
+                <div class="theme-toggle" onclick="document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <a href="https://github.com/QuasarFoks" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Герой -->
+    <section class="hero-section">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">PortProton <br>для FreeBSD / OpenBSD</h1>
+                <p class="hero-description">
+                    Проект <strong>QuasarFoks</strong> по портированию PortProton для BSD-систем.
+                </p>
+                <div class="hero-actions">
+                    <a href="#" class="btn btn-primary"><i class="fas fa-download"></i>Скачать</a>
+                    <a href="#" class="btn btn-outline"><i class="fab fa-github"></i>GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Две главные карточки -->
+    <section class="features-section" style="padding-top: 0;">
+        <div class="container">
+            <div class="features-grid">
+                <!-- FreeBSD -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fab fa-freebsd"></i>
+                    </div>
+                    <h3>FreeBSD <span class="status-badge active" style="margin-left: 10px;">WIP</span></h3>
+                    <p>Linuxulator, Vulkan, ProtonGE. Релиз: Q4 2025</p>
+                    <a href="#" class="btn btn-outline" style="margin-top: 15px; width: 100%;">Репозиторий</a>
+                </div>
+
+                <!-- OpenBSD -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>OpenBSD <span class="status-badge" style="background: rgba(255,193,7,0.2); color: #FFC107; margin-left: 10px;">beta</span></h3>
+                    <p>Pledge/Unveil, X11, портирование. Релиз: 2026</p>
+                    <a href="#" class="btn btn-outline" style="margin-top: 15px; width: 100%;">Репозиторий</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Терминал (быстрая установка) -->
+    <section class="projects-section" style="padding: 40px 0;">
+        <div class="container">
+            <div class="terminal-preview" style="max-width: 800px; margin: 0 auto;">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="terminal-btn close"></span>
+                        <span class="terminal-btn minimize"></span>
+                        <span class="terminal-btn maximize"></span>
+                    </div>
+                    <div class="terminal-title">установка одной командой</div>
+                </div>
+                <div class="terminal-content">
+                    <pre>
+<span class="terminal-green">$</span> fetch https://unixgames.org/portproton-bsd.sh
+<span class="terminal-green">$</span> sh portproton-bsd.sh</pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Лицензии и помощь сообществу -->
+    <section class="cta-section" style="padding: 40px 0;">
+        <div class="container cta-content">
+            <h2 style="font-size: 1.8rem;">Помощь BSD-сообществу</h2>
+            <p style="max-width: 600px; margin: 0 auto 20px;">
+                Все патчи и скрипты открыты под лицензиями GPL / BSD / MIT.
+                Присоединяйся к разработке!
+            </p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <span class="badge" style="background: var(--color-primary);">GPL</span>
+                <span class="badge" style="background: var(--color-success);">BSD</span>
+                <span class="badge" style="background: var(--color-info);">MIT</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="main-footer" style="padding: 30px 0;">
+        <div class="container">
+            <div class="footer-bottom" style="border: none; padding: 0;">
+                <p>© 2025 QuasarFoks · UNIX GAMES — неофициальный порт PortProton для FreeBSD/OpenBSD</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
